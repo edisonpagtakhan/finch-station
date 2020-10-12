@@ -4,6 +4,7 @@ import com.ttc.assignment.finchstation.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 /**
@@ -37,6 +38,7 @@ class RetrofitClient private constructor() {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(createClient())
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         apiService = retrofit.create(ApiService::class.java)
