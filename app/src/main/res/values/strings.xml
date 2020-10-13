@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Finch Station</string>
+
+    <string name="hide_stops">Hide stops without routes</string>
 </resources>
