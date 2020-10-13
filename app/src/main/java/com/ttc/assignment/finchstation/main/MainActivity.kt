@@ -27,7 +27,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun configureViews() {
         setSupportActionBar(toolbar)
+        configureSwitch()
         configureRecyclerView()
+    }
+
+    private fun configureSwitch() {
+        hideRoutesSwitch.setOnCheckedChangeListener { _, willHide ->
+            viewModel.toggleShowAll(!willHide)
+        }
     }
 
     private fun configureRecyclerView() {
@@ -51,6 +58,7 @@ class MainActivity : AppCompatActivity() {
 
             stops.observe(owner = lifeCycleOwner) { stops ->
                 val adapter = stopsRecyclerView.adapter as SectionedRecyclerViewAdapter
+                adapter.removeAllSections()
 
                 stops.forEach { stop ->
                     val section = StopSection(stop)

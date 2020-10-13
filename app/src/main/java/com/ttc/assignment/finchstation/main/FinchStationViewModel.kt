@@ -66,11 +66,16 @@ class FinchStationViewModel: ViewModel() {
         }
     }
 
+    fun toggleShowAll(willShowAll: Boolean) {
+        showAllStops.value = willShowAll
+        updateStops()
+    }
+
     private fun updateStops() {
-        val stops = station!!.stops
+        val stops = station?.stops ?: return
 
         mutableStops.value = if (showAllStops.value!!) {
-            stops
+            stops.sortedByDescending { it.routes.isNotEmpty() }
         } else {
             stops.filter { it.routes.isNotEmpty() }
         }
