@@ -50,7 +50,11 @@ class RetrofitClient private constructor() {
             .connectTimeout(TIMEOUT_IN_SEC, TimeUnit.SECONDS)
 
         if (BuildConfig.DEBUG) {
-            okHttpClient.addInterceptor(HttpLoggingInterceptor())
+            val loggingInterceptor = HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            }
+
+            okHttpClient.addInterceptor(loggingInterceptor)
         }
 
         return okHttpClient.build()
