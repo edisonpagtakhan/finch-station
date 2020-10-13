@@ -4,7 +4,9 @@
     android:id="@+id/routeTextView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="20dp"
-    android:paddingVertical="8dp"
+    android:layout_marginHorizontal="20dp"
+    android:paddingVertical="16dp"
+    android:textSize="15sp"
+    android:background="@drawable/route_item_divider"
     tools:text="36 Finch West" />
 
