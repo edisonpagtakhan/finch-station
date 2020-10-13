@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.stop_header.view.*
 /**
  * Created by edison on 10/13/20.
  */
-class StopSection(private val stop: Stop) : Section(
+class StopSection(private val stop: Stop, private val callback: Callback) : Section(
     SectionParameters.builder()
         .headerResourceId(R.layout.stop_header)
         .itemResourceId(R.layout.route_item)
@@ -42,11 +42,19 @@ class StopSection(private val stop: Stop) : Section(
         }
     }
 
-    class RouteViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class RouteViewHolder(view: View): RecyclerView.ViewHolder(view) {
         private val routeTextView: TextView = view.routeTextView
 
         fun bindData(route: Route) {
+            itemView.setOnClickListener {
+                callback.onClickRoute(route, routeTextView)
+            }
+
             routeTextView.text = route.name
         }
+    }
+
+    interface Callback {
+        fun onClickRoute(route: Route, view: View)
     }
 }
