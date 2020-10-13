@@ -28,12 +28,19 @@ class MainActivity : AppCompatActivity() {
     private fun configureViews() {
         setSupportActionBar(toolbar)
         configureSwitch()
+        configurePullToRefresh()
         configureRecyclerView()
     }
 
     private fun configureSwitch() {
         hideRoutesSwitch.setOnCheckedChangeListener { _, willHide ->
             viewModel.toggleShowAll(!willHide)
+        }
+    }
+
+    private fun configurePullToRefresh() {
+        swipeRefreshLayout.setOnRefreshListener {
+            viewModel.requestData(true)
         }
     }
 
@@ -48,12 +55,13 @@ class MainActivity : AppCompatActivity() {
         viewModel.apply {
             requestData()
 
-            isLoading.observe(owner = lifeCycleOwner) {
+            isLoading.observe(owner = lifeCycleOwner) { isLoading ->
                 //TODO: Handle loading
             }
 
             stationName.observe(owner = lifeCycleOwner) { stationName ->
                 supportActionBar!!.title = stationName
+                swipeRefreshLayout.isRefreshing = false
             }
 
             stops.observe(owner = lifeCycleOwner) { stops ->

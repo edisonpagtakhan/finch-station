@@ -44,8 +44,8 @@ class FinchStationViewModel: ViewModel() {
     val willShowAllStops: LiveData<Boolean>
         get() = showAllStops
 
-    fun requestData() {
-        loading.value = true
+    fun requestData(isRefreshing: Boolean = false) {
+        loading.value = !isRefreshing
 
         viewModelScope.launch {
             try {
