@@ -19,25 +19,15 @@
             android:layout_height="wrap_content"
             android:padding="20dp">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/serviceIdView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{stopTime.serviceIdStr}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="34" />
-
             <TextView
                 android:id="@+id/shapeTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="12dp"
+                android:layout_marginEnd="20dp"
                 android:lineSpacingExtra="4dp"
                 android:text="@{stopTime.shape}"
                 app:layout_constraintEnd_toStartOf="@id/nextStopEtaView"
-                app:layout_constraintStart_toEndOf="@id/serviceIdView"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="36A Finch West to Kipling" />
 
@@ -55,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:barrierDirection="bottom"
-                app:constraint_referenced_ids="shapeTextView,serviceIdView" />
+                app:constraint_referenced_ids="shapeTextView,nextStopEtaView" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/stopTimesGroup"
