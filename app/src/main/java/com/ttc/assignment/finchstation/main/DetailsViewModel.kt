@@ -56,17 +56,21 @@ class DetailsViewModel : ViewModel() {
         val now = Calendar.getInstance().timeInMillis / 1000L
 
         // Groups future stop times with the same shape
-        groupedStopTimes.value = route!!.stopTimes.groupBy { it.shape }.map {
-            val stopTimes = it.value.filter { stopTime -> stopTime.departureTimeStamp > now }
-            val firstElement = stopTimes.first()
+        groupedStopTimes.value = route!!.stopTimes
+            .filter { stopTime -> stopTime.departureTimeStamp > now }
+            .groupBy { it.shape }
+            .map {
+                val stopTimes = it.value
+                val firstElement = stopTimes.first()
 
-            GroupedStopTimes(
-                stopTimes.map { stopTime ->  stopTime.departureTime },
-                firstElement.shape,
-                firstElement.departureTimeStamp,
-                firstElement.serviceId
-            )
-        }
+                GroupedStopTimes(
+                    stopTimes.map { stopTime -> stopTime.departureTime },
+                    firstElement.shape,
+                    firstElement.departureTimeStamp,
+                    firstElement.serviceId
+                )
+
+            }
     }
 
     private fun startAutoRefresh() {
