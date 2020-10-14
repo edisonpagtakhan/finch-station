@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.ttc.assignment.finchstation.data.GroupedStopTimes
 import com.ttc.assignment.finchstation.data.Route
 import com.ttc.assignment.finchstation.data.StopTime
+import java.util.*
 
 /**
  * Created by edison on 10/14/20.
@@ -33,9 +34,11 @@ class DetailsViewModel : ViewModel() {
 
         name.value = route.name
 
-        // Groups the stop times with the same shape
+        val now = Calendar.getInstance().timeInMillis / 1000L
+
+        // Groups future stop times with the same shape
         groupedStopTimes.value = route.stopTimes.groupBy { it.shape }.map {
-            val stopTimes = it.value
+            val stopTimes = it.value.filter { stopTime -> stopTime.departureTimeStamp > now }
             val firstElement = stopTimes.first()
 
             GroupedStopTimes(
