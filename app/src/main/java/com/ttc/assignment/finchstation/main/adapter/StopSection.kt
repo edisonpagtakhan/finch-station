@@ -3,6 +3,7 @@ package com.ttc.assignment.finchstation.main.adapter
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.chip.Chip
 import com.ttc.assignment.finchstation.R
 import com.ttc.assignment.finchstation.data.Route
 import com.ttc.assignment.finchstation.data.Stop
@@ -44,6 +45,7 @@ class StopSection(private val stop: Stop, private val callback: Callback) : Sect
 
     inner class RouteViewHolder(view: View): RecyclerView.ViewHolder(view) {
         private val routeTextView: TextView = view.routeTextView
+        private val routeGroupIdView: Chip = view.routeGroupIdView
 
         fun bindData(route: Route) {
             itemView.setOnClickListener {
@@ -51,6 +53,7 @@ class StopSection(private val stop: Stop, private val callback: Callback) : Sect
             }
 
             routeTextView.text = route.name
+            routeGroupIdView.text = route.routeGroupId
         }
     }
 
