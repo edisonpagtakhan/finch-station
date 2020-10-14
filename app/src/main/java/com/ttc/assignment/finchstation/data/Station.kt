@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
  */
 data class Station(
     @SerializedName("time")
-    val time: Int,
+    val time: Long,
 
     @SerializedName("stops")
     val stops: List<Stop>,

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="stopTime"
+            type="com.ttc.assignment.finchstation.data.GroupedStopTimes" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/serviceIdView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{stopTime.serviceIdStr}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="34" />
+
+            <TextView
+                android:id="@+id/shapeTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="12dp"
+                android:lineSpacingExtra="4dp"
+                android:text="@{stopTime.shape}"
+                app:layout_constraintEnd_toStartOf="@id/nextStopEtaView"
+                app:layout_constraintStart_toEndOf="@id/serviceIdView"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="36A Finch West to Kipling" />
+
+            <TextView
+                android:id="@+id/nextStopEtaView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:eta="@{stopTime.nextDepartureTimeStamp}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="3 mins 4 secs" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="shapeTextView,serviceIdView" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/stopTimesGroup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/barrier" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+</layout>

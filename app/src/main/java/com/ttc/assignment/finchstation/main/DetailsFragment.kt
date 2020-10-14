@@ -1,16 +1,19 @@
 package com.ttc.assignment.finchstation.main
 
 import android.os.Bundle
-import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.google.android.material.transition.MaterialContainerTransform
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import com.ttc.assignment.finchstation.R
 import com.ttc.assignment.finchstation.data.Route
 import com.ttc.assignment.finchstation.databinding.FragmentDetailsBinding
+import com.ttc.assignment.finchstation.main.adapter.StopTimesAdapter
+import com.ttc.assignment.finchstation.views.MarginItemDecoration
+import kotlinx.android.synthetic.main.fragment_details.*
 
 class DetailsFragment : Fragment() {
     companion object {
@@ -26,13 +29,42 @@ class DetailsFragment : Fragment() {
     }
 
     private lateinit var dataBinding: FragmentDetailsBinding
+    private val detailsViewModel: DetailsViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val route: Route = requireArguments().getParcelable(ROUTE_PARAM)!!
-
         dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_details, container, false)
-        dataBinding.routeName = route.name
 
         return dataBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val route: Route = requireArguments().getParcelable(ROUTE_PARAM)!!
+        detailsViewModel.setRoute(route)
+
+        initializeRecyclerView()
+        observeViewModel()
+    }
+
+    private fun initializeRecyclerView() {
+        val margin = resources.getDimensionPixelSize(R.dimen.recycler_item_padding)
+
+        stopTimesRecyclerView.apply {
+            adapter = StopTimesAdapter()
+            addItemDecoration(MarginItemDecoration(right = margin, left = margin, bottom = margin))
+        }
+    }
+
+    private fun observeViewModel() {
+        detailsViewModel.apply {
+            routeName.observe(owner = viewLifecycleOwner) { routeName ->
+                dataBinding.routeName = routeName
+            }
+
+            stopTimes.observe(owner = viewLifecycleOwner) { stopTimes ->
+                (stopTimesRecyclerView.adapter as StopTimesAdapter).setData(stopTimes)
+            }
+        }
     }
 }

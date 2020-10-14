@@ -15,8 +15,8 @@ data class StopTime(
     @SerializedName("shape")
     val shape: String,
 
-    @SerializedName("departure_time_stamp")
-    val departureTimeStamp: Int,
+    @SerializedName("departure_timestamp")
+    val departureTimeStamp: Long,
 
     @SerializedName("service_id")
     val serviceId: Int
