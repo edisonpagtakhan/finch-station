@@ -65,6 +65,10 @@ class DetailsFragment : Fragment() {
             stopTimes.observe(owner = viewLifecycleOwner) { stopTimes ->
                 (stopTimesRecyclerView.adapter as StopTimesAdapter).setData(stopTimes)
             }
+
+            isUpdating.observe(owner = viewLifecycleOwner) { isUpdating ->
+                dataBinding.isUpdating = isUpdating
+            }
         }
     }
 }

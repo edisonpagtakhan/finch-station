@@ -3,21 +3,30 @@ package com.ttc.assignment.finchstation.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ttc.assignment.finchstation.data.GroupedStopTimes
 import com.ttc.assignment.finchstation.data.Route
-import com.ttc.assignment.finchstation.data.StopTime
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.*
 
 /**
  * Created by edison on 10/14/20.
  */
 class DetailsViewModel : ViewModel() {
+    companion object {
+        private const val AUTO_REFRESH_INTERVAL_IN_MILLIS = 30000L
+        private const val UPDATING_LAYOUT_DURATION = 3000L
+    }
 
     val routeName: LiveData<String>
         get() = name
 
     val stopTimes: LiveData<List<GroupedStopTimes>>
         get() = groupedStopTimes
+
+    val isUpdating: LiveData<Boolean>
+        get() = willShowUpdatingLayout
 
     private val name: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
@@ -27,6 +36,10 @@ class DetailsViewModel : ViewModel() {
         MutableLiveData<List<GroupedStopTimes>>()
     }
 
+    private val willShowUpdatingLayout: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>(false)
+    }
+
     private var route: Route? = null
 
     fun setRoute(route: Route) {
@@ -34,10 +47,16 @@ class DetailsViewModel : ViewModel() {
 
         name.value = route.name
 
+        updateStopTimes()
+    }
+
+    private fun updateStopTimes() {
+        startAutoRefresh()
+
         val now = Calendar.getInstance().timeInMillis / 1000L
 
         // Groups future stop times with the same shape
-        groupedStopTimes.value = route.stopTimes.groupBy { it.shape }.map {
+        groupedStopTimes.value = route!!.stopTimes.groupBy { it.shape }.map {
             val stopTimes = it.value.filter { stopTime -> stopTime.departureTimeStamp > now }
             val firstElement = stopTimes.first()
 
@@ -48,5 +67,22 @@ class DetailsViewModel : ViewModel() {
                 firstElement.serviceId
             )
         }
+    }
+
+    private fun startAutoRefresh() {
+        viewModelScope.launch {
+            delay(AUTO_REFRESH_INTERVAL_IN_MILLIS)
+            updateStopTimes()
+            showUpdatingLayout()
+        }
+    }
+
+    private suspend fun showUpdatingLayout() {
+        willShowUpdatingLayout.value = true
+
+        delay(UPDATING_LAYOUT_DURATION)
+
+        willShowUpdatingLayout.value = false
+
     }
 }
