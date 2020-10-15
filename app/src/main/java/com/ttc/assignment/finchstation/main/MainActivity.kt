@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity(), StopSection.Callback {
             requestData()
 
             isLoading.observe(owner = lifeCycleOwner) { isLoading ->
-                //TODO: Handle loading
+                dataBinding.isLoading = isLoading
             }
 
             stationName.observe(owner = lifeCycleOwner) { stationName ->
