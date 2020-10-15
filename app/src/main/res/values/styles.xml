@@ -6,6 +6,25 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowContentTransitions">true</item>
+        <item name="android:fontFamily">@font/lato</item>
+        <item name="chipStyle">@style/AppTheme.ChipStyle</item>
+    </style>
+
+    <style name="ToolbarTitleText">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="AppTheme.TextAppearanceBody2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/lato</item>
+    </style>
+
+    <style name="AppTheme.ChipStyle" parent="Widget.MaterialComponents.Chip.Entry">
+        <item name="android:textAppearance">@style/AppTheme.TextAppearanceBody2</item>
+        <item name="checkedIconVisible">false</item>
+        <item name="closeIconVisible">false</item>
+        <item name="android:focusable">false</item>
+        <item name="android:clickable">false</item>
     </style>
 
 </resources>
