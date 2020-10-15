@@ -47,8 +47,8 @@
 
             <ProgressBar
                 android:id="@+id/progressBar"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:layout_marginStart="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/white">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/routeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -80,6 +80,7 @@
                     android:text="@{routeName}"
                     android:textSize="32sp"
                     android:textStyle="bold"
+                    android:breakStrategy="simple"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
