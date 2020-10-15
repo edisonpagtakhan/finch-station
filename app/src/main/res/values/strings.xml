@@ -1,3 +1,31 @@
 <resources>
     <string name="app_name">Finch Station</string>
+
+    <string name="hide_stops">Hide stops without routes</string>
+
+    <plurals name="hrs">
+        <item quantity="one">%d hr</item>
+        <item quantity="other">%d hrs</item>
+    </plurals>
+
+    <plurals name="mins">
+        <item quantity="one">%d min</item>
+        <item quantity="other">%d mins</item>
+    </plurals>
+
+    <plurals name="secs">
+        <item quantity="one">%d sec</item>
+        <item quantity="other">%d secs</item>
+    </plurals>
+
+    <string name="arriving_soon">Arriving soon</string>
+
+    <string name="updating">Updating&#8230;</string>
+
+    <!-- General -->
+    <string name="dismiss">Dismiss</string>
+
+
+    <!-- Error messages -->
+    <string name="default_error_message">Something went wrong. Please try again later.</string>
 </resources>
