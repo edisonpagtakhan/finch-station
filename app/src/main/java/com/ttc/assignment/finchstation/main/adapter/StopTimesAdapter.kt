@@ -76,22 +76,18 @@ class StopTimesAdapter(private var stopTimes: List<GroupedStopTimes>? = null) :
 
             val resources = textView.resources
 
-            val eta = when {
-                hrs >= 1 -> {
-                    val hoursStr = resources.getQuantityString(R.plurals.hrs, hrs, hrs)
-                    val minsStr = resources.getQuantityString(R.plurals.mins, mins, mins)
+            val eta = resources.run {
+                val hoursStr = getQuantityString(R.plurals.hrs, hrs, hrs)
+                val minsStr = getQuantityString(R.plurals.mins, mins, mins)
+                val secsStr = getQuantityString(R.plurals.secs, secs, secs)
 
-                    "$hoursStr $minsStr"
+                when {
+                    hrs >= 1 -> "$hoursStr $minsStr"
+
+                    mins >= 1 -> "$minsStr $secsStr"
+
+                    else -> getString(R.string.arriving_soon)
                 }
-
-                mins >= 1 -> {
-                    val minsStr = resources.getQuantityString(R.plurals.mins, mins, mins)
-                    val secsStr = resources.getQuantityString(R.plurals.secs, secs, secs)
-
-                    "$minsStr $secsStr"
-                }
-
-                else -> resources.getQuantityString(R.plurals.secs, secs, secs)
             }
 
             textView.text = eta

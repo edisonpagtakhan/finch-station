@@ -18,5 +18,7 @@
         <item quantity="other">%d secs</item>
     </plurals>
 
+    <string name="arriving_soon">Arriving soon</string>
+
     <string name="updating">Updating&#8230;</string>
 </resources>
