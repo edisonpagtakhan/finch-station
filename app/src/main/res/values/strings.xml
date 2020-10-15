@@ -2,8 +2,21 @@
     <string name="app_name">Finch Station</string>
 
     <string name="hide_stops">Hide stops without routes</string>
-    <string name="eta_templ_hrs">%d hrs %d mins</string>
-    <string name="eta_templ_mins">%d mins %d secs</string>
-    <string name="eta_templ_secs">%d secs</string>
+
+    <plurals name="hrs">
+        <item quantity="one">%d hr</item>
+        <item quantity="other">%d hrs</item>
+    </plurals>
+
+    <plurals name="mins">
+        <item quantity="one">%d min</item>
+        <item quantity="other">%d mins</item>
+    </plurals>
+
+    <plurals name="secs">
+        <item quantity="one">%d sec</item>
+        <item quantity="other">%d secs</item>
+    </plurals>
+
     <string name="updating">Updating&#8230;</string>
 </resources>

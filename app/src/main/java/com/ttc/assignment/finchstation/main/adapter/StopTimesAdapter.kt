@@ -70,19 +70,31 @@ class StopTimesAdapter(private var stopTimes: List<GroupedStopTimes>? = null) :
             val now = Calendar.getInstance().timeInMillis / 1000L
             val diff = timestamp - now
 
-            val secs = diff % 60
-            val mins = diff / 60 % 60
-            val hrs = diff / 3600
+            val secs = (diff % 60).toInt()
+            val mins = (diff / 60 % 60).toInt()
+            val hrs = (diff / 3600).toInt()
 
-            val (templateRes, arg1, arg2) = when {
-                hrs >= 1 -> Triple(R.string.eta_templ_hrs, hrs, mins)
+            val resources = textView.resources
 
-                mins >= 1 -> Triple(R.string.eta_templ_mins, mins, secs)
+            val eta = when {
+                hrs >= 1 -> {
+                    val hoursStr = resources.getQuantityString(R.plurals.hrs, hrs, hrs)
+                    val minsStr = resources.getQuantityString(R.plurals.mins, mins, mins)
 
-                else -> Triple(R.string.eta_templ_secs, secs, null)
+                    "$hoursStr $minsStr"
+                }
+
+                mins >= 1 -> {
+                    val minsStr = resources.getQuantityString(R.plurals.mins, mins, mins)
+                    val secsStr = resources.getQuantityString(R.plurals.secs, secs, secs)
+
+                    "$minsStr $secsStr"
+                }
+
+                else -> resources.getQuantityString(R.plurals.secs, secs, secs)
             }
 
-            textView.text = textView.context.getString(templateRes, arg1, arg2)
+            textView.text = eta
         }
     }
 }
