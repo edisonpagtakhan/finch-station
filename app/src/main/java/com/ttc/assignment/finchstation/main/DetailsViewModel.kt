@@ -76,11 +76,12 @@ class DetailsViewModel : ViewModel() {
     private fun startAutoRefresh() {
         viewModelScope.launch {
             delay(AUTO_REFRESH_INTERVAL_IN_MILLIS)
-            updateStopTimes()
             showUpdatingLayout()
+            updateStopTimes()
         }
     }
 
+    // Add delay before updating layout to make the update more visible
     private suspend fun showUpdatingLayout() {
         willShowUpdatingLayout.value = true
 
