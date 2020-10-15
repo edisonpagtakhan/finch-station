@@ -1,6 +1,7 @@
 package com.ttc.assignment.finchstation.main
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -29,16 +30,35 @@ class MainActivity : AppCompatActivity(), StopSection.Callback {
         initializeViewModel()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+
+            else -> false
+        }
+    }
+
     override fun onBackPressed() {
         super.onBackPressed()
 
         if (supportFragmentManager.backStackEntryCount > 0) {
-            supportActionBar!!.setHomeButtonEnabled(false)
+            return
         }
+
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(false)
+        }
+
+        fragmentContainer.visibility = View.GONE
     }
 
     override fun onClickRoute(route: Route, view: View) {
-        supportActionBar!!.setHomeButtonEnabled(true)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+        }
 
         val fragment = DetailsFragment.newInstance(route)
 
@@ -55,6 +75,7 @@ class MainActivity : AppCompatActivity(), StopSection.Callback {
         }
 
         TransitionManager.beginDelayedTransition(stopsRecyclerView, transform)
+        fragmentContainer.visibility = View.VISIBLE
     }
 
     private fun configureViews() {
