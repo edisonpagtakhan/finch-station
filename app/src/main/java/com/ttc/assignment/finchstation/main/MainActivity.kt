@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.observe
 import androidx.transition.TransitionManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.transition.MaterialContainerTransform
 import com.ttc.assignment.finchstation.R
 import com.ttc.assignment.finchstation.data.Route
@@ -132,8 +135,24 @@ class MainActivity : AppCompatActivity(), StopSection.Callback {
             willShowAllStops.observe(owner = lifeCycleOwner) { willShow ->
                 dataBinding.isChecked = !willShow
             }
+
+            hasError.observe(owner = lifeCycleOwner) { hasError ->
+                swipeRefreshLayout.isRefreshing = false
+
+                if (hasError.getContentIfNotHandled() != true) {
+                    return@observe
+                }
+
+                showErrorMessage()
+            }
         }
+    }
 
-
+    private fun showErrorMessage() {
+        AlertDialog.Builder(ContextThemeWrapper(this, R.style.AppTheme_AlertDialog))
+            .setMessage(R.string.default_error_message)
+            .setPositiveButton(R.string.dismiss) {_, _ -> }
+            .create()
+            .show()
     }
 }

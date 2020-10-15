@@ -21,4 +21,11 @@
     <string name="arriving_soon">Arriving soon</string>
 
     <string name="updating">Updating&#8230;</string>
+
+    <!-- General -->
+    <string name="dismiss">Dismiss</string>
+
+
+    <!-- Error messages -->
+    <string name="default_error_message">Something went wrong. Please try again later.</string>
 </resources>

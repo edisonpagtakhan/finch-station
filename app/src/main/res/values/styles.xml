@@ -31,4 +31,14 @@
         <item name="chipBackgroundColor">@color/colorPrimary</item>
     </style>
 
+    <style name="AppTheme.AlertDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="fontFamily">@font/lato</item>
+        <item name="buttonBarPositiveButtonStyle">@style/AppTheme.PositiveButtonStyle</item>
+    </style>
+    
+    <style name="AppTheme.PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="fontFamily">@font/lato_bold</item>
+    </style>
+
 </resources>

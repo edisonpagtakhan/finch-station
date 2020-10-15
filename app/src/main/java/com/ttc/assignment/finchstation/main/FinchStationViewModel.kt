@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ttc.assignment.finchstation.data.EventWrapper
 import com.ttc.assignment.finchstation.data.Station
 import com.ttc.assignment.finchstation.data.Stop
 import com.ttc.assignment.finchstation.network.RetrofitClient
@@ -32,6 +33,10 @@ class FinchStationViewModel: ViewModel() {
         MutableLiveData<Boolean>(false)
     }
 
+    private val hasApiError: MutableLiveData<EventWrapper<Boolean>> by lazy {
+        MutableLiveData<EventWrapper<Boolean>>()
+    }
+
     val isLoading: LiveData<Boolean>
         get() = loading
 
@@ -43,6 +48,9 @@ class FinchStationViewModel: ViewModel() {
 
     val willShowAllStops: LiveData<Boolean>
         get() = showAllStops
+
+    val hasError: LiveData<EventWrapper<Boolean>>
+        get() = hasApiError
 
     fun requestData(isRefreshing: Boolean = false) {
         loading.value = !isRefreshing
@@ -62,6 +70,7 @@ class FinchStationViewModel: ViewModel() {
 
             } catch (exception: Exception) {
                 loading.value = false
+                hasApiError.value = EventWrapper(true)
             }
         }
     }
