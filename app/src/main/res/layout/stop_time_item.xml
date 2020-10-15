@@ -28,6 +28,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:lineSpacingExtra="4dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
                 android:text="@{stopTime.shape}"
                 app:layout_constraintEnd_toStartOf="@id/nextStopEtaView"
                 app:layout_constraintStart_toStartOf="parent"
